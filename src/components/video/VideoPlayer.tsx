@@ -8,6 +8,16 @@ export function VideoPlayer() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  useEffect(() => {
+    // Example: Log when the component mounts
+    console.log('VideoPlayer mounted');
+
+    // Cleanup function if needed
+    return () => {
+      console.log('VideoPlayer unmounted');
+    };
+  }, []); // Empty dependency array means this runs once on mount
+
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && videoRef.current) {

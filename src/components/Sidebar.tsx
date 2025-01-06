@@ -1,8 +1,6 @@
-import React from 'react';
 import { Hash, Users, Bookmark, List, Inbox } from 'lucide-react';
 import { SidebarLink } from './SidebarLink';
 import { useInbox } from '../hooks/useInbox';
-import { SubmitButton } from './submit/SubmitButton';
 
 export function Sidebar() {
   const { openInbox } = useInbox();
@@ -11,9 +9,6 @@ export function Sidebar() {
     <aside className="w-48 fixed left-0 top-16 h-full border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors">
       <nav className="p-2">
         <ul className="space-y-1">
-          <li>
-            <SubmitButton />
-          </li>
           <li>
             <SidebarLink href="/trending" icon={<Hash />} label="Trending" />
           </li>

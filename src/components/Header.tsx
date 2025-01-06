@@ -1,9 +1,13 @@
-import React from 'react';
 import { Logo } from './Logo';
 import { SearchBar } from './SearchBar';
 import { ProfileDropdown } from './ProfileDropdown';
 
 export default function Header() {
+  const handleSubmitPost = () => {
+    // Add the functionality that was previously in the Sidebar
+    console.log('Submit Post clicked');
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 transition-all">
       {/* Gradient background */}
@@ -20,7 +24,13 @@ export default function Header() {
             <SearchBar />
           </div>
 
-          <div className="w-48 flex justify-end">
+          <div className="w-48 flex justify-end items-center space-x-4">
+            <button
+              onClick={handleSubmitPost}
+              className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition-colors"
+            >
+              Submit Post
+            </button>
             <ProfileDropdown />
           </div>
         </div>

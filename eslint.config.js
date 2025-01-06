@@ -8,7 +8,7 @@ export default tseslint.config(
   { ignores: ['dist'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -24,5 +24,19 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
     },
+    parser: '@babel/eslint-parser',
+    parserOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+      ecmaFeatures: {
+        jsx: true,
+      },
+      requireConfigFile: false,
+    },
+    env: {
+      browser: true,
+      es6: true,
+    },
+    plugins: ['react'],
   }
 );
