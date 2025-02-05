@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface MessageItemProps {
   avatar: string;
   name: string;

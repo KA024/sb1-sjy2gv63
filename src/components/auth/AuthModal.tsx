@@ -22,6 +22,7 @@ export function AuthModal() {
         <div className="relative bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-xl">
           {/* Close button */}
           <button
+            aria-label="Close authentication modal"
             onClick={closeAuth}
             className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
           >

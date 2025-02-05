@@ -1,4 +1,3 @@
-import React from 'react';
 import { X } from 'lucide-react';
 import { useInbox } from '../../hooks/useInbox';
 import { InboxTabs } from './InboxTabs';
@@ -22,6 +21,7 @@ export function InboxModal() {
           <button
             onClick={closeInbox}
             className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
+            aria-label="Close inbox"
           >
             <X className="w-5 h-5" />
           </button>

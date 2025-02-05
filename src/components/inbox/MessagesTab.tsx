@@ -1,4 +1,3 @@
-import React from 'react';
 import { MessageItem } from './MessageItem';
 
 const SAMPLE_MESSAGES = [

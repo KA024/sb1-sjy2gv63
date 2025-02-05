@@ -1,5 +1,4 @@
-import React from 'react';
-import { Heart, MessageCircle, UserPlus, Star } from 'lucide-react';
+import { Heart, MessageCircle, UserPlus } from 'lucide-react';
 import { NotificationItem } from './NotificationItem';
 
 const SAMPLE_NOTIFICATIONS = [

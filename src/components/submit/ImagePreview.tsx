@@ -1,4 +1,3 @@
-import React from 'react';
 import { X } from 'lucide-react';
 
 interface ImagePreviewProps {
@@ -16,6 +15,7 @@ export function ImagePreview({ url, onRemove }: ImagePreviewProps) {
       />
       <button
         onClick={onRemove}
+        title="Remove image"
         className="absolute top-2 right-2 p-1 bg-black/50 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <X className="w-4 h-4" />

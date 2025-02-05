@@ -1,36 +1,56 @@
-import React, { useState } from 'react';
-import { X, Image, Upload } from 'lucide-react';
+import { useState, FormEvent } from 'react';
+import { X, Upload } from 'lucide-react';
 import { useSubmitPost } from '../../hooks/useSubmitPost';
-import { ImagePreview } from './ImagePreview';
+import { MediaUpload } from './MediaUpload';
+import { MediaPreview } from './MediaPreview';
 
 export function SubmitModal() {
   const { isOpen, closeSubmitPost } = useSubmitPost();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [images, setImages] = useState<File[]>([]);
 
   if (!isOpen) return null;
 
-  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
+  const handleImageSelect = (files: File[]) => {
     const newPreviewUrls = files.map(file => URL.createObjectURL(file));
-    
-    setImages(prev => [...prev, ...files]);
     setPreviewUrls(prev => [...prev, ...newPreviewUrls]);
+    setImages(prev => [...prev, ...files]);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle post submission logic here
-    closeSubmitPost();
+  const handleVideoSelect = (file: File) => {
+    if (videoUrl) {
+      URL.revokeObjectURL(videoUrl);
+    }
+    const url = URL.createObjectURL(file);
+    setVideoUrl(url);
   };
-
   const removeImage = (index: number) => {
     URL.revokeObjectURL(previewUrls[index]);
-    setImages(prev => prev.filter((_, i) => i !== index));
+    setImages(prev => prev.filter((_: File, i: number) => i !== index));
     setPreviewUrls(prev => prev.filter((_, i) => i !== index));
   };
+
+  const removeVideo = () => {
+    if (videoUrl) {
+      URL.revokeObjectURL(videoUrl);
+      setVideoUrl(null);
+    }
+  };
+
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+      event.preventDefault();
+      // Use the images state in your submission logic
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      images.forEach((image, index) => {
+        formData.append(`image${index}`, image);
+      });
+      // TODO: Add your API call here
+    }
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -44,6 +64,7 @@ export function SubmitModal() {
           <button
             onClick={closeSubmitPost}
             className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
+            title="Close modal"
           >
             <X className="w-5 h-5" />
           </button>
@@ -81,32 +102,20 @@ export function SubmitModal() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Images
+                  Media
                 </label>
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  {previewUrls.map((url, index) => (
-                    <ImagePreview 
-                      key={url}
-                      url={url}
-                      onRemove={() => removeImage(index)}
-                    />
-                  ))}
-                </div>
-                <label className="flex items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
-                  <div className="flex flex-col items-center space-y-2">
-                    <Image className="w-8 h-8 text-gray-400" />
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      Click to upload images
-                    </span>
-                  </div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={handleImageSelect}
-                    className="hidden"
+                <MediaUpload
+                  onImageSelect={handleImageSelect}
+                  onVideoSelect={handleVideoSelect}
+                />
+                <div className="mt-4">
+                  <MediaPreview
+                    images={previewUrls}
+                    video={videoUrl}
+                    onRemoveImage={removeImage}
+                    onRemoveVideo={removeVideo}
                   />
-                </label>
+                </div>
               </div>
 
               <div className="flex justify-end space-x-4">

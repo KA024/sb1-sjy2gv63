@@ -1,4 +1,3 @@
-import React from 'react';
 import { Post } from './Post';
 
 const SAMPLE_POSTS = [
@@ -27,7 +26,7 @@ const SAMPLE_POSTS = [
 
 export function Feed() {
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
       {SAMPLE_POSTS.map((post, index) => (
         <Post key={index} {...post} />
       ))}

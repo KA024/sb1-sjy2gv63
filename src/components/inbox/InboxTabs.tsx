@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bell, MessageCircle } from 'lucide-react';
 import { TabType } from '../../hooks/useInbox';
 
