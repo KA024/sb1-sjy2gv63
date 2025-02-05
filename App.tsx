@@ -1,33 +1,24 @@
-import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+// Removed unused import; React is automatically imported when using JSX in modern setups.
+import Header from './components/Header';
+import { Sidebar } from './components/Sidebar';
+import { Feed } from './components/Feed';
+import { AuthModal } from './components/auth/AuthModal';
+import { InboxModal } from './components/inbox/InboxModal';
+import { SubmitModal } from './components/submit/SubmitModal';
 
-const App = () => {
+export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to React Native Web!</Text>
-    </View>
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+      <Header />
+      <div className="pt-16 flex">
+        <Sidebar />
+        <main className="flex-1 ml-48">
+          <Feed />
+        </main>
+      </div>
+      <AuthModal />
+      <InboxModal />
+      <SubmitModal />
+    </div>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-    // Use percentage-based width for responsiveness
-    width: '100%',
-  },
-  text: {
-    fontSize: 18,
-    textAlign: 'center',
-    // Adjust font size based on screen size
-    ...(Platform.OS === 'web' && {
-      '@media (min-width: 600px)': {
-        fontSize: 24,
-      }
-    }),
-  },
-});
-
-export default App; 
+}
