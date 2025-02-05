@@ -7,8 +7,8 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   { ignores: ['dist'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended, 'stylelint-config-standard'],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -23,20 +23,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Remove PostCSS related rules
     },
-    parser: '@babel/eslint-parser',
-    parserOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
-      ecmaFeatures: {
-        jsx: true,
-      },
-      requireConfigFile: false,
-    },
-    env: {
-      browser: true,
-      es6: true,
-    },
-    plugins: ['react'],
-  }
+  },
 );
